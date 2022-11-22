@@ -4,10 +4,11 @@ public class DisjointSet <T>{
 
     DisjointSet(){/*Empty*/}
 
-    public void makeSet(T v){
+    public DisjointSet<T> makeSet(T v){
         size = 0;
         father = this;
         value = v;
+        return this;
     }
 
     public DisjointSet<T> union(DisjointSet<T> other){
