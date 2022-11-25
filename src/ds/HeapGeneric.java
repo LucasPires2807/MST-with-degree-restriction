@@ -1,16 +1,17 @@
+package ds;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Heap_generic<E extends Comparable<E> > {
+public class HeapGeneric<E extends Comparable<E> > {
     // heap_min
     private List<E> storage;
 
-    Heap_generic(){
+    HeapGeneric(){
         storage = new ArrayList<>();
     }
 
-    public E get_min(){
+    public E getMin(){
         return storage.get(0);
     }
 
@@ -67,7 +68,7 @@ public class Heap_generic<E extends Comparable<E> > {
 
 
     public static void main(String[] args) {
-        Heap_generic<Integer> my_heap = new Heap_generic<Integer>();
+        HeapGeneric<Integer> my_heap = new HeapGeneric<Integer>();
 
         my_heap.insert(1);
         my_heap.insert(2);

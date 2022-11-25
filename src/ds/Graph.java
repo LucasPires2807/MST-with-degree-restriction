@@ -1,6 +1,8 @@
 package ds;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Vector;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -45,8 +47,11 @@ import java.util.HashMap;
 
 public class Graph {
     
-
     Graph(){/*Currently empty*/}
+
+    Graph(int d){
+        degree = d;
+    }
 
     public Graph connectVertices(edge e){
         for(edge i : edges){
@@ -89,6 +94,15 @@ public class Graph {
         return g;
     }
 
+    /*
+     * This method recieves a bitset representing a graph in the following way:
+     *  {(A,B),(A,C),(A,D),...,(B,C),(B,D),...,(last but one, last)}
+     * If the bitset isn't given in this way, the following algorithm won't
+     * behave as expected.
+     * The method is simply to check wethear a given bitset is representing
+     * a spanning tree with a given degree restriction.
+     * It uses four auxiliary methos for checking.
+     */
     public boolean isBitsetSpanningTree(BitSet b){
         Graph g = new Graph();
         // Converting bitset to graph;
@@ -99,16 +113,59 @@ public class Graph {
             }
         }
 
-        return !hasCycle(g);
+        return !hasCycle(g) && respectDegree(g);
     }
 
+    /*
+     * This method will be called only when the given graph has v vertex and v-1 edges.
+     * Working with this assumption, we have that:
+     *      The given graph with the assumption have a cycle iff it has a disconnected vertex.
+     * To check wethear the given graph has a cycle, we check for a disconnected vertex.
+     * To do so, we check for each graph at the vertex if it has any incident edge.
+     * If any edge isn't incident to every edge, then, the given graph has a cycle.
+     * Thus, it isn't a spanning tree.
+     */
     private boolean hasCycle(Graph g){
-        // Rodar dfs
+        char higherChar = (char) (65 + g.nodes.size()-1);
+        Set<Character> nodes = new HashSet<Character>();
+        // Check if the current letter is incident to any edge.
+        for(char c = 'A'; c < higherChar; ++c){
+            for(edge e : g.edges){
+                if(c == e.origin || c == e.destination){
+                    nodes.add(c);
+                }
+            }
+        }
+        return (g.nodes.size() == nodes.size());
+    }
+
+    /*
+     * This method will be called only when the given graph has v vertex and v-1 edges,
+     * no cycle - and consequently, no disconnected vertex.
+     * Working with this assumption, we check how many edges are incident to every vertex.
+     * If any graph has a number of incident edges higher than the deegre that the spanning
+     * tree must respect, then the graph is not the one that we are looking for.
+     */
+    private boolean respectDegree(Graph g){
+        char higherChar = (char) (65 + g.nodes.size()-1);
+        Map<Character,Integer> vertexDegree = new HashMap<Character,Integer>(g.nodes.size());
+        for(char node : g.nodes){
+            vertexDegree.put(node,0);
+        }
+        for(edge e : edges){
+            vertexDegree.replace(e.origin, vertexDegree.get(e.origin), vertexDegree.get(e.origin)+1);
+            vertexDegree.replace(e.destination, vertexDegree.get(e.destination), vertexDegree.get(e.destination)+1);
+        }
+        for(Map.Entry<Character,Integer> entry : vertexDegree.entrySet()){
+            if(entry.getValue() > degree){
+                return false;
+            }
+        }
         return true;
     }
 
     /*
-     * This method the logic works as follows:
+     * This method logic works as follows:
      * As an exemple, we have a complete graph with the edges A, B, C and D.
      * Each edge at the vector of edges is at the following order:
      *      (A,B), (A,C), (A,D), (B,C), (B,D), (C,D)
@@ -146,9 +203,7 @@ public class Graph {
         private int weight;
     };
 
-    // Refazer a parte do node para que seja possível usar o algoritmo prim
-    // Um nó precisa guardar em um nó quantos outros nós estão conectados
-
     private Vector<edge> edges;
     private Vector<Character> nodes;
+    private int degree;
 }

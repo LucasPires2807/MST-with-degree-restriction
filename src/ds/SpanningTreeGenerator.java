@@ -9,12 +9,12 @@ import java.util.Vector;
 public class SpanningTreeGenerator {
     int n;
     int d;
-    Vector<BitSet> my_trees;
+    Vector<BitSet> myTrees;
 
     SpanningTreeGenerator(int n, int d){
         this.n = n;
         this.d = d;
-        my_trees = new Vector<>();
+        myTrees = new Vector<>();
     }
 
     private BitSet increment(BitSet b , boolean a){
@@ -31,7 +31,7 @@ public class SpanningTreeGenerator {
         if(b.length() > (n*n - n)/2) return;
         if(b.length() == (n*n - n)/2){
             if(b.cardinality() == n-1){
-                my_trees.add(b);
+                myTrees.add(b);
             }
             return;
         }
