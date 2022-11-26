@@ -49,8 +49,9 @@ public class Graph {
     
     Graph(){/*Currently empty*/}
 
-    Graph(int d){
+    Graph(int[][] w, int d){
         degree = d;
+        weights = w;
     }
 
     public Graph connectVertices(edge e){
@@ -102,6 +103,8 @@ public class Graph {
      * The method is simply to check wethear a given bitset is representing
      * a spanning tree with a given degree restriction.
      * It uses four auxiliary methos for checking.
+     * 
+     * Complexity: O(V*E + E + (V + E))
      */
     public boolean isBitsetSpanningTree(BitSet b){
         Graph g = new Graph();
@@ -121,22 +124,19 @@ public class Graph {
      * Working with this assumption, we have that:
      *      The given graph with the assumption have a cycle iff it has a disconnected vertex.
      * To check wethear the given graph has a cycle, we check for a disconnected vertex.
-     * To do so, we check for each graph at the vertex if it has any incident edge.
-     * If any edge isn't incident to every edge, then, the given graph has a cycle.
+     * We add all the incident edges to a HashSet, if the HashSet has less nodes than the graph,
+     * the given subgraph has a cycle.
      * Thus, it isn't a spanning tree.
+     * 
+     * Complexity: O(E)
      */
     private boolean hasCycle(Graph g){
-        char higherChar = (char) (65 + g.nodes.size()-1);
         Set<Character> nodes = new HashSet<Character>();
-        // Check if the current letter is incident to any edge.
-        for(char c = 'A'; c < higherChar; ++c){
-            for(edge e : g.edges){
-                if(c == e.origin || c == e.destination){
-                    nodes.add(c);
-                }
-            }
+        for(edge e : g.edges){
+            nodes.add(e.origin);
+            nodes.add(e.destination);
         }
-        return (g.nodes.size() == nodes.size());
+        return (g.nodes.size() != nodes.size());
     }
 
     /*
@@ -145,9 +145,10 @@ public class Graph {
      * Working with this assumption, we check how many edges are incident to every vertex.
      * If any graph has a number of incident edges higher than the deegre that the spanning
      * tree must respect, then the graph is not the one that we are looking for.
+     * 
+     * Complexity: O(V+E).
      */
     private boolean respectDegree(Graph g){
-        char higherChar = (char) (65 + g.nodes.size()-1);
         Map<Character,Integer> vertexDegree = new HashMap<Character,Integer>(g.nodes.size());
         for(char node : g.nodes){
             vertexDegree.put(node,0);
@@ -180,6 +181,8 @@ public class Graph {
      * If it isn't, the boundaries are tightened by incrementing the count and decreasing the upperBound by count
      * so that we have now the next subrange.
      * If it is, does a convertion in a proper way and then returns the edge.
+     * 
+     * Complexity: O(V) roughly, it runs worst case with V-1 iterations with V the number of vertices.
      */
     private edge bitToEdge(BitSet b, int idx){
         int upperBound = b.size()-1; // A variable to check if the given i is in a determined range
@@ -189,7 +192,8 @@ public class Graph {
         }
         char origin = (char) (65 + nodes.size() - (count + 1));
         char destination = (char) ((int)origin + (idx - upperBound + count ) + 1);
-        return new edge(origin,destination,0); // Necessário ajeitar o weight
+        int weight = weights[nodes.size()-(count+1)][(idx - upperBound + count) + 1]; // Check wethear it is correct.
+        return new edge(origin,destination,weight); // Necessário ajeitar o weight
     }
 
     public class edge{
@@ -206,4 +210,5 @@ public class Graph {
     private Vector<edge> edges;
     private Vector<Character> nodes;
     private int degree;
+    private int[][] weights;
 }
