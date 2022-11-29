@@ -57,8 +57,16 @@ public class Validation {
                 g.connectVertices(edges.get(i));
             }
         }
+        isValid = isCandidate(g);
+        graph = g;
+        return isValid;
+    }
 
-        return isCandidate(g);
+    public Graph getGraph(){
+        if(isValid){
+            return graph;
+        }
+        return new Graph();
     }
 
     /*
@@ -196,6 +204,8 @@ public class Validation {
     //     return (int)(1 + Math.sqrt(1+8*n))/2;
     // }
 
-    int degree;
-    Vector<Edge> edges;
+    private int degree;
+    private Vector<Edge> edges;
+    private Graph graph;
+    private boolean isValid;
 }

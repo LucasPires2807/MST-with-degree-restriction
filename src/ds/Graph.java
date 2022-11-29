@@ -3,6 +3,7 @@ package ds;
 import java.util.Map;
 import java.util.Vector;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /*
  * A quantidade de partições que serão geradas é a quantidade de arestas que o grafo terá no final n-1, sendo n a quantidade de
@@ -51,6 +52,18 @@ public class Graph {
     public Graph(Vector<Edge> e){
         // Colocar nodes
         edges = e;
+        HashSet<Character> hs = new HashSet<>();
+        nodes = new Vector<>();
+        for(Edge i : edges){
+            if(!hs.contains(i.getOrigin())){
+                nodes.add(i.getOrigin());
+                hs.add(i.getOrigin());
+            }
+            if(!hs.contains(i.getDestination())){
+                nodes.add(i.getDestination());
+                hs.add(i.getDestination());
+            }
+        }
     }
 
     // Maybe unecessary
@@ -102,6 +115,14 @@ public class Graph {
 
     public Vector<Edge> getEdges(){
         return edges;
+    }
+
+    public int getTotalCost(){
+        int cost = 0;
+        for(Edge e : edges){
+            cost += e.getWeight();
+        }
+        return cost;
     }
 
     // Usar para todas as combinações possíveis

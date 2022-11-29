@@ -1,14 +1,17 @@
 import java.util.Vector;
 import java.util.Scanner;
+import java.util.BitSet;
 import ds.Edge;
+import ds.Graph;
+import ds.SpanningTreeGenerator;
+import auxiliary.Validation;
 public class Main {
     public static void main(String[] args){
-        // Para leitura
         Scanner sc = new Scanner(System.in);
         int n, d;
         n = sc.nextInt();
         d = sc.nextInt();
-        int edges[][] = new int[n][n];
+        int edges[][] = new int[n][n]; // TODO Final ver se precisa tirar
         int x = 0;
         char origin = 'A';
         char destination = 'B';
@@ -25,6 +28,36 @@ public class Main {
                 }
             }
         }
+
+        Graph g = new Graph(e);
+        BitSet bitset = new BitSet(g.getEdges().size());
+        SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
+        Validation v = new Validation(d, e);
+
+        stg.generateTrees(bitset);
+
+        Vector<BitSet> bs = stg.getBitsets().get();
+        Vector<Graph> graphs = new Vector<Graph>();
+
+        int min = Integer.MAX_VALUE;
+
+        for(BitSet b : bs){
+            if(v.isBitsetSpanningTree(b)){
+                graphs.add(v.getGraph());
+            }
+        }
+        for(Graph i : graphs){
+            int value = i.getTotalCost();
+            if(min > value){
+                min = value;
+                g = i;
+            }
+        }
+        System.out.println("Custo: " + min);
+        System.out.println("Spanning tree:");
+        for(Edge i : g.getEdges()){
+            System.out.println(i);
+        }
         /*
         Com isso, o exemplo:
         5 2
@@ -40,5 +73,6 @@ public class Main {
         c4  0  0  0  0 13
         c5  0  0  0  0  0
          */
+        sc.close();
     }
 }
