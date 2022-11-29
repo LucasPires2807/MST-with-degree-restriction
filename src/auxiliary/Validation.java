@@ -3,6 +3,7 @@ package auxiliary;
 import ds.Graph;
 import ds.Edge;
 import ds.DisjointSet;
+import ds.MyBitSet;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;

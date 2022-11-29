@@ -5,7 +5,7 @@ public class MyBitSet {
     private int size;
     private int capacity;
 
-    MyBitSet(int n){
+    public MyBitSet(int n){
         this.size = this.capacity = n;
         storage = new boolean[n];
     }
