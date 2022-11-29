@@ -4,8 +4,11 @@ import java.util.BitSet;
 import ds.Edge;
 import ds.Graph;
 import ds.SpanningTreeGenerator;
+import ds.MyBitSet;
 import auxiliary.Validation;
 public class Main {
+
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int n, d;
@@ -30,18 +33,18 @@ public class Main {
         }
 
         Graph g = new Graph(e);
-        BitSet bitset = new BitSet(g.getEdges().size());
+        MyBitSet bitset = new MyBitSet(g.getEdges().size());
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(d, e);
 
         stg.generateTrees(bitset);
 
-        Vector<BitSet> bs = stg.getBitsets().get();
+        Vector<MyBitSet> bs = stg.getBitsets().get();
         Vector<Graph> graphs = new Vector<Graph>();
 
         int min = Integer.MAX_VALUE;
 
-        for(BitSet b : bs){
+        for(MyBitSet b : bs){
             if(v.isBitsetSpanningTree(b)){
                 graphs.add(v.getGraph());
             }
