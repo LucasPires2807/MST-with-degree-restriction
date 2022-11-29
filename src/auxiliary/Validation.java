@@ -49,7 +49,7 @@ public class Validation {
      * It uses four auxiliary methods for checking.
      * Complexity: O(E)
      */
-    public boolean isBitsetSpanningTree(BitSet b){
+    public boolean isBitsetSpanningTree(MyBitSet b){
         Graph g = new Graph();
         // Converting bitset to graph;
         for(int i = 0; i < b.size(); ++i){
