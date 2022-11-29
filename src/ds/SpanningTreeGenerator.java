@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Vector;
 
 public class SpanningTreeGenerator {
-    int n;
-    int d;
-    Vector<BitSet> myTrees;
+    private int n;
+    private int d;
+    private Vector<BitSet> myTrees;
 
-    SpanningTreeGenerator(int n, int d){
+    public SpanningTreeGenerator(int n, int d){
         this.n = n;
         this.d = d;
         myTrees = new Vector<>();
@@ -26,7 +26,7 @@ public class SpanningTreeGenerator {
         return r;
     }
 
-    void generateTrees(BitSet b){
+    public void generateTrees(BitSet b){
         if(b.cardinality() > n-1) return;
         if(b.length() > (n*n - n)/2) return;
         if(b.length() == (n*n - n)/2){

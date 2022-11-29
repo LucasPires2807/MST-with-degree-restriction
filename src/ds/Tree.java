@@ -28,4 +28,8 @@ public class Tree {
     public int getRoot() {
         return root;
     }
+
+    public int getSonsqtt(){
+        return sonsqtt;
+    }
 }

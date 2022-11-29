@@ -1,4 +1,6 @@
+import java.util.Vector;
 import java.util.Scanner;
+import ds.Edge;
 public class Main {
     public static void main(String[] args){
         // Para leitura
@@ -8,10 +10,19 @@ public class Main {
         d = sc.nextInt();
         int edges[][] = new int[n][n];
         int x = 0;
+        char origin = 'A';
+        char destination = 'B';
+        Vector<Edge> e = new Vector<Edge>();
         for(int i = x; i < n-1; i++){
             x++;
             for(int j = i+1; j < n; j++){
                 edges[i][j] = sc.nextInt();
+                e.add(new Edge(origin, destination, edges[i][j]));
+                ++destination;
+                if(destination - 'A' == n){
+                    ++origin;
+                    destination = (char) (origin+1);
+                }
             }
         }
         /*

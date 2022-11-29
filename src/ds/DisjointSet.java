@@ -2,7 +2,7 @@ package ds;
 
 public class DisjointSet <T>{
 
-    DisjointSet(){/*Empty*/}
+    public DisjointSet(){/*Empty*/}
 
     public DisjointSet<T> makeSet(T v){
         size = 0;
