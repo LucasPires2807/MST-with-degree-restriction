@@ -35,7 +35,7 @@ public class Main {
         Graph g = new Graph(e);
         MyBitSet bitset = new MyBitSet(g.getEdges().size());
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
-        Validation v = new Validation(d, e);
+        Validation v = new Validation(n, d, e);
 
         stg.generateTrees(bitset);
 
