@@ -113,6 +113,14 @@ public class SpanningTreeGenerator {
         }
     }
 
+    public Vector<MyBitSet> get(){
+        return myTrees;
+    }
+
+    public int size(){
+        return myTrees.size();
+    }
+
     /**
      * String with the SpannigTreeGenerator information
      * @return The string with the 'MyTrees' contents

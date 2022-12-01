@@ -4,6 +4,12 @@ public class DisjointSet <T>{
 
     public DisjointSet(){/*Empty*/}
 
+    public DisjointSet(T v){
+        size = 0;
+        father = this;
+        value = v;
+    }
+
     public DisjointSet<T> makeSet(T v){
         size = 0;
         father = this;
@@ -31,6 +37,11 @@ public class DisjointSet <T>{
             ds.father = find(ds.father);
         }
         return ds.father;
+    }
+
+    @Override
+    public String toString(){
+        return ("Has value " + value);
     }
 
     private int size;
