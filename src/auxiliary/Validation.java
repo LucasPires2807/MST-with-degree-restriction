@@ -4,7 +4,6 @@ import ds.Graph;
 import ds.Edge;
 import ds.DisjointSet;
 import ds.MyBitSet;
-import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -35,7 +34,8 @@ public class Validation {
      *  c4  0  0  0  0 13
      *  c5  0  0  0  0  0
      */
-    public Validation(int d, Vector<Edge> e){
+    public Validation(int n, int d, Vector<Edge> e){
+        nodesToCheck = n;
         degree = d;
         edges = e;
     }
@@ -56,6 +56,8 @@ public class Validation {
         for(int i = 0; i < b.size(); ++i){
             if(b.get(i)){    // edge in the graph
                 g.connectVertices(edges.get(i));
+                g.insertVertex(edges.get(i).getOrigin());
+                g.insertVertex(edges.get(i).getDestination());
             }
         }
         isValid = isCandidate(g);
@@ -92,11 +94,16 @@ public class Validation {
         DisjointSet<Character> ds = new DisjointSet<Character>();
         Map<Character, DisjointSet<Character>> m = new HashMap<Character, DisjointSet<Character>>();
         Map<Character,Integer> adjVertex = new HashMap<Character,Integer>();
+        int nodeCount = 0;
         int connections = 0;
-        for(char c : g.getNodes()){
-            DisjointSet<Character> thisDisjointSet = ds.makeSet(c);
-            m.put(c, thisDisjointSet);
-        }
+      for(char c : g.getNodes()) {
+          ++nodeCount;
+          DisjointSet<Character> thisDisjointSet = new DisjointSet<>(c);
+          m.put(c, thisDisjointSet);
+      }
+      if(nodeCount != nodesToCheck){
+        return false;
+      }
         for(Edge e : g.getEdges()){
             DisjointSet<Character> first = m.get(e.getOrigin());
             DisjointSet<Character> second = m.get(e.getDestination());
@@ -121,7 +128,7 @@ public class Validation {
                 adjVertex.put(e.getDestination(), 1);
             }
         }
-        return connections == g.getNodeSize()-1;
+        return connections == nodesToCheck-1;
     }
 
     /*
@@ -201,12 +208,13 @@ public class Validation {
      * This method converts the number of edges to the number of nodes in a complete graph.
      * Which means that n should be formed by m(m-1)/2 to any natural m.
      */
-    // private int vertexQuantity(int n){
-    //     return (int)(1 + Math.sqrt(1+8*n))/2;
-    // }
+     private int vertexQuantity(int n){
+         return (int)(1 + Math.sqrt(1+8*n))/2;
+     }
 
     private int degree;
     private Vector<Edge> edges;
     private Graph graph;
     private boolean isValid;
+    private int nodesToCheck;
 }

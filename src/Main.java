@@ -33,9 +33,9 @@ public class Main {
         }
 
         Graph g = new Graph(e);
-        MyBitSet bitset = new MyBitSet(g.getEdges().size());
+        MyBitSet bitset = new MyBitSet(0);
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
-        Validation v = new Validation(d, e);
+        Validation v = new Validation(n, d, e);
 
         stg.generateTrees(bitset);
 
@@ -44,11 +44,11 @@ public class Main {
 
         int min = Integer.MAX_VALUE;
 
-        for(MyBitSet b : bs){
-            if(v.isBitsetSpanningTree(b)){
-                graphs.add(v.getGraph());
-            }
-        }
+       for(MyBitSet b : bs){
+           if(v.isBitsetSpanningTree(b)){
+               graphs.add(v.getGraph());
+           }
+       }
         for(Graph i : graphs){
             int value = i.getTotalCost();
             if(min > value){
@@ -56,11 +56,15 @@ public class Main {
                 g = i;
             }
         }
-        System.out.println("Custo: " + min);
-        System.out.println("Spanning tree:");
-        for(Edge i : g.getEdges()){
-            System.out.println(i);
-        }
+       System.out.println("Custo: " + min);
+       System.out.print("Vertices: {0");
+       for(int i = 1; i < n; ++i){
+        System.out.print(", " + ((i == n-1) ? i + "}" : i));
+       }
+       System.out.println();
+       for(Edge i : g.getEdges()){
+           System.out.println(i);
+       }
         /*
         Com isso, o exemplo:
         5 2

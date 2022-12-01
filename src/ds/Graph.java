@@ -47,53 +47,63 @@ public class Graph {
     
     public Graph(){
         super();
+        nodesSet = new HashSet<>();
+        edges = new Vector<Edge>();
+        nodes = new Vector<>();
     }
 
     public Graph(Vector<Edge> e){
         // Colocar nodes
         edges = e;
-        HashSet<Character> hs = new HashSet<>();
+        nodesSet = new HashSet<>();
         nodes = new Vector<>();
         for(Edge i : edges){
-            if(!hs.contains(i.getOrigin())){
+            if(!nodesSet.contains(i.getOrigin())){
                 nodes.add(i.getOrigin());
-                hs.add(i.getOrigin());
+                nodesSet.add(i.getOrigin());
             }
-            if(!hs.contains(i.getDestination())){
+            if(!nodesSet.contains(i.getDestination())){
                 nodes.add(i.getDestination());
-                hs.add(i.getDestination());
+                nodesSet.add(i.getDestination());
             }
         }
     }
 
     // Maybe unecessary
-    public Graph(int n, int[][] w){
-        super();
-        weights = w;
-        int x = 0;
-        for(int i = x; i < n-1; i++){
-            x++;
-            for(int j = i+1; j < n; j++){
-                edges.add(new Edge((char)(65+i),(char)(65+j),weights[i][j]));
-            }
-        }
-    }
+    // public Graph(int n, int[][] w){
+    //     super();
+    //     nodes = new Vector<>();
+    //     edges = new Vector<>();
+    //     nodesSet = new HashSet<>();
+    //     weights = w;
+    //     int x = 0;
+    //     for(int i = x; i < n-1; i++){
+    //         x++;
+    //         for(int j = i+1; j < n; j++){
+    //             edges.add(new Edge((char)(65+i),(char)(65+j),weights[i][j]));
+    //         }
+    //     }
+    // }
 
-    public Graph connectVertices(Edge e){
-        for(Edge i : edges){
-            if(i == e)
-                return this;
-        }
+    public void connectVertices(Edge e){
+       for(Edge i : edges){
+           if(i == e) break;
+       }
         edges.add(e);
-        return this;
     }
 
     public void insertVertex(char v){
+        if(nodesSet.contains(v)) return;
         nodes.add(v);
+        nodesSet.add(v);
     }
 
     public int getNodeSize(){
         return nodes.size();
+    }
+
+    public int getEdgesSize(){
+        return edges.size();
     }
 
     public Vector<Character> getNodes(){
@@ -156,4 +166,5 @@ public class Graph {
     private Vector<Edge> edges;
     private Vector<Character> nodes;
     private int[][] weights;
+    private HashSet<Character> nodesSet;
 }

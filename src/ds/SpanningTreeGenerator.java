@@ -51,6 +51,14 @@ public class SpanningTreeGenerator {
         }
     }
 
+    public Vector<MyBitSet> get(){
+        return myTrees;
+    }
+
+    public int size(){
+        return myTrees.size();
+    }
+
     @Override
     public String toString(){
         String ret = "";

@@ -22,6 +22,11 @@ public class Edge {
         return weight;
     }
 
+    @Override
+    public String toString() {
+        return ("[" + (int)(origin - 65) + "," + (int)(destination - 65) + "]" + " = " + weight);
+    }
+
     private char origin;
     private char destination;
     private int weight;
