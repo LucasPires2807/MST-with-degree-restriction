@@ -37,7 +37,9 @@ public class Main {
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(n, d, e);
 
-        stg.generateTrees();
+        System.out.println("t1");
+        stg.generateTreesIt();
+        System.out.println("t2");
 
         Vector<MyBitSet> bs = stg.getBitsets().get();
         Vector<Graph> graphs = new Vector<Graph>();
