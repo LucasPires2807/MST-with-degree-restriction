@@ -76,18 +76,18 @@ public class Validation {
      * This method works with the assumption that the given graph has v vertex and v-1 edges.
      * The goal of the method is to check whether the given graph respect a certain degree
      * and the graph is a spanning tree.
-     * 
+     *
      * With the above assumpion we have:
      *      The given graph have a cycle iff it has a disconnected vertex.
      * To check it, at the end is needed to check if the quantity of connections of the disjoint set
      * is equal to the graph size, since it occur only when adding an edge does not make a cycle.
      * If it is different, there is a cycle. Thus, is not a candidate.
-     * 
+     *
      * And for the vertex: for each edge, it will be incremented by one the value that the
      * map is mapping to.
      * If at the map exists a value greater than the degree, the graph doesn't respect the degree.
      * Thus, is not a candidate.
-     * 
+     *
      * Complexity: O(E).
      */
     private boolean isCandidate(Graph g){
@@ -135,18 +135,18 @@ public class Validation {
      * This method works with the assumption that the given graph has v vertex and v-1 edges.
      * The goal of the method is to check whether the given graph respect a certain degree
      * and the graph is a spanning tree.
-     * 
+     *
      * With the above assumpion we have:
      *      The given graph have a cycle iff it has a disconnected vertex.
      * To check it, at the end is needed to check if the map size is equal to the graph size,
      * since a vertex is added only if an edge is incident to it.
      * If it is different, there is a cycle. Thus, is not a candidate.
-     * 
+     *
      * And for the vertex: for each edge, it will be incremented by one the value that the
      * map is mapping to.
      * If at the map exists a value greater than the degree, the graph doesn't respect the degree.
      * Thus, is not a candidate.
-     * 
+     *
      * Complexity: O(E).
      */
     // TODO: Refatorar
@@ -180,16 +180,16 @@ public class Validation {
      *      (A,B), (A,C), (A,D), (B,C), (B,D), (C,D)
      * Note that there's always a subrange that the letter, from A to the previous of the last letter,
      * is the first at the pair at the subrange.
-     * 
+     *
      * The method starts by taking the last pair, witch is always (previous of the last letter, last letter),
      * that can be denoted as [upperBound - count, upperbound] closed interval, with upperBound = b.size()-1 = 5
      * and count = 0.
-     * 
+     *
      * At the condition of the while loop, it checks whether the given index is at the current range.
      * If it isn't, the boundaries are tightened by incrementing the count and decreasing the upperBound by count
      * so that we have now the next subrange.
      * If it is, does a convertion in a proper way and then returns the edge.
-     * 
+     *
      * Complexity: O(V).
      */
     // private Edge bitToEdge(BitSet b, int idx){
