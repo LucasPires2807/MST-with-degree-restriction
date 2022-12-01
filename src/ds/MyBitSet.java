@@ -52,12 +52,34 @@ public class MyBitSet {
 
     @Override
     public String toString(){
-        String ret = "";
+        String ret = "bits: ";
         for(int i = 0; i < size; ++i){
             ret = ret + this.storage[i] + " ";
         }
+        ret = ret + ",size: " + size + " , cardinality: " + cardinality();
         return  ret;
     }
+
+    public static void main(String[] args){
+        MyBitSet a = new MyBitSet(0);
+        MyBitSet at = a.increment(true);
+        MyBitSet af = a.increment(false);
+        MyBitSet att = at.increment(true);
+        MyBitSet atf = at.increment(false);
+        MyBitSet aft = af.increment(true);
+        MyBitSet aff = af.increment(false);
+
+        System.out.println(a.toString());
+        System.out.println(at.toString());
+        System.out.println(af.toString());
+        System.out.println(att.toString());
+        System.out.println(atf.toString());
+        System.out.println(aft.toString());
+        System.out.println(aff.toString());
+        
+    }
+
+
 
 
 }

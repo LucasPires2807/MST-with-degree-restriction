@@ -33,11 +33,11 @@ public class Main {
         }
 
         Graph g = new Graph(e);
-        MyBitSet bitset = new MyBitSet(g.getEdges().size());
+        MyBitSet bitset = new MyBitSet(0);
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(n, d, e);
 
-        stg.generateTrees(bitset);
+        stg.generateTrees();
 
         Vector<MyBitSet> bs = stg.getBitsets().get();
         Vector<Graph> graphs = new Vector<Graph>();

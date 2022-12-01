@@ -30,7 +30,7 @@ public class SpanningTreeGenerator {
     }
 
     
-    public void generateTrees(MyBitSet b){
+    private void generateTrees(MyBitSet b){
         if(b.cardinality() > n-1) return;
         if(b.size() > (n*n - n)/2) return;
         if(b.size() == (n*n - n)/2){
@@ -41,6 +41,9 @@ public class SpanningTreeGenerator {
         }
         generateTrees(b.increment(true));
         generateTrees(b.increment( false));
+    }
+    public void generateTrees(){
+        generateTrees(new MyBitSet(0));
     }
 
     public Optional<Vector<MyBitSet>> getBitsets(){
@@ -61,8 +64,8 @@ public class SpanningTreeGenerator {
     }
 
     public static void main(String[] args) {
-        SpanningTreeGenerator my_gen = new SpanningTreeGenerator(5,5);
-        my_gen.generateTrees(new MyBitSet(0));
+        SpanningTreeGenerator my_gen = new SpanningTreeGenerator(4,5);
+        my_gen.generateTrees();
         System.out.println(my_gen.toString());
     }
 
