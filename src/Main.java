@@ -89,6 +89,10 @@ public class Main {
             first = check.minPart(list);
             toCheck = first.getMst();
         }
-
+        System.out.println("Custo: " + toCheck.getTotalCost());
+        System.out.println("Spanning tree:");
+        for(Edge i : toCheck.getEdges()){
+            System.out.println(i);
+        }
     }
 }

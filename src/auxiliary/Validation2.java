@@ -29,7 +29,14 @@ public class Validation2 {
         Vector<Edge> out = p.getExcluded();
         for(Edge e: mstEdges){
             open.remove(e);
-            Partition n = new Partition(in,open,out);
+            Vector<Edge> a = new Vector<>(in);
+//            a = in;
+            Vector<Edge> b = new Vector<>(open);
+//            b = open;
+            Vector<Edge> c = new Vector<>(out);
+//            c = out;
+            Partition n = new Partition(a,b,c);
+//            Partition n = new Partition(in,open,out);
             Optional<Graph> g = kruskal(nodesqtt, open, in);
             if(g.isPresent()){
                 n.setMst(g.get());
@@ -59,7 +66,7 @@ public class Validation2 {
         //adiciona os nós ao grafo
         for(int i = 0; i < n; i++){
             g.insertVertex(c);
-            DisjointSet<Character> thisDisjointSet = ds.makeSet(c);
+            DisjointSet<Character> thisDisjointSet = new DisjointSet<>(c);
             m.put(c, thisDisjointSet);
             c++;
         }
