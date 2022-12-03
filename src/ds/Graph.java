@@ -50,6 +50,7 @@ public class Graph {
         nodesSet = new HashSet<>();
         edges = new Vector<Edge>();
         nodes = new Vector<>();
+        nodesDegree = new HashMap<Character,Integer>();
     }
 
     public Graph(Vector<Edge> e){
@@ -57,6 +58,7 @@ public class Graph {
         edges = e;
         nodesSet = new HashSet<>();
         nodes = new Vector<>();
+        nodesDegree = new HashMap<Character,Integer>();
         for(Edge i : edges){
             if(!nodesSet.contains(i.getOrigin())){
                 nodes.add(i.getOrigin());
@@ -90,12 +92,16 @@ public class Graph {
            if(i == e) break;
        }
         edges.add(e);
+        nodesDegree.replace(e.getOrigin(),nodesDegree.get(e.getOrigin())+1);
+        nodesDegree.replace(e.getDestination(),nodesDegree.get(e.getDestination())+1);
+        totalCost += e.getWeight();
     }
 
     public void insertVertex(char v){
         if(nodesSet.contains(v)) return;
         nodes.add(v);
         nodesSet.add(v);
+        nodesDegree.put(v,0);
     }
 
     public int getNodeSize(){
@@ -128,13 +134,12 @@ public class Graph {
     }
 
     public int getTotalCost(){
-        int cost = 0;
-        for(Edge e : edges){
-            cost += e.getWeight();
-        }
-        return cost;
+        return totalCost;
     }
 
+    public Map<Character,Integer> getNodesDegree(){
+        return nodesDegree;
+    }
     // Usar para todas as combinações possíveis
 
     public Graph kruskal(){
@@ -167,4 +172,6 @@ public class Graph {
     private Vector<Character> nodes;
     private int[][] weights;
     private HashSet<Character> nodesSet;
+    private int totalCost = 0;
+    private Map<Character,Integer> nodesDegree;
 }
