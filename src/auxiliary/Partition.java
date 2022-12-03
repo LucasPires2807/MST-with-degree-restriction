@@ -30,4 +30,24 @@ public class Partition {
     public void setMst(Graph mst) {
         this.mst = mst;
     }
+
+    public Graph getMst() {
+        return mst;
+    }
+
+    public Vector<Edge> getIncluded(){
+        return included;
+    }
+
+    public Vector<Edge> getOpen(){
+        return open;
+    }
+
+    public Vector<Edge> getExcluded(){
+        return excluded;
+    }
+
+    public void newExcluded(Edge e){
+        excluded.add(e);
+    }
 }
