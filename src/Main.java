@@ -6,7 +6,49 @@ import ds.Graph;
 import ds.SpanningTreeGenerator;
 import ds.MyBitSet;
 import auxiliary.Validation;
+import auxiliary.Partition;
 public class Main {
+    public static boolean degreesCheck(Graph g, int d){
+        Map<Character,Integer> nodes = g.getNodesDegree();
+        for (Map.Entry<Character,Integer> entry : nodes.entrySet()){
+            if(entry.getValue()> d)
+                return false;
+        }
+        return true;
+    }
+    public static Optional<Graph> kruskal(int n, Vector<Edge> edgesOrd){
+        //ordena todas as arestas
+        edgesOrd.sort(new EdgeComparator());
+        Graph g = new Graph();
+        DisjointSet<Character> ds = new DisjointSet<Character>();
+        Map<Character, DisjointSet<Character>> m = new HashMap<Character, DisjointSet<Character>>();
+        char c = 'A';
+        int edgescount = 0;
+        int idx = 0;
+        //adiciona os nós ao grafo
+        for(int i = 0; i < n; i++){
+            g.insertVertex(c);
+            DisjointSet<Character> thisDisjointSet = ds.makeSet(c);
+            m.put(c, thisDisjointSet);
+            c++;
+        }
+        //adiciona as arestas ao grafo. Se a aresta fosse realizar ciclo, não adiciona.
+        //Como está ordenado, vai adicinando as menores
+        while(edgescount != n-1){
+            if(idx == (n * (n-1))/2) break;
+            DisjointSet<Character> first = m.get(edgesOrd.get(idx).getOrigin());
+            DisjointSet<Character> second = m.get(edgesOrd.get(idx).getDestination());
+            if(ds.find(first) != ds.find(second)){
+                first.union(second);
+                g.connectVertices(edgesOrd.get(idx));
+                ++edgescount;
+            }
+            idx++;
+        }
+        if(edgescount != n-1){
+            return Optional.empty();
+        }else return Optional.of(g);
+    }
 
 
     public static void main(String[] args){
@@ -83,5 +125,14 @@ public class Main {
         c5  0  0  0  0  0
          */
         sc.close();
+        
+        //part 2
+        Vector<Partition> list = new Vector<Partition>();
+        Partition first = new Partition(e);
+        list.add(first);
+        Graph toCheck = kruskal(n, e).get();
+        while(!degreesCheck(toCheck, d)){
+
+        }
     }
 }
