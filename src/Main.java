@@ -16,7 +16,7 @@ public class Main {
         }
         return true;
     }
-    public static Optional<Graph> kruskal(int n, Vector<Edge> edgesOrd){
+     public static Optional<Graph> kruskal(int n, Vector<Edge> edgesOrd, Vector<Edge> toAdd){
         //ordena todas as arestas
         edgesOrd.sort(new EdgeComparator());
         Graph g = new Graph();
@@ -31,6 +31,17 @@ public class Main {
             DisjointSet<Character> thisDisjointSet = ds.makeSet(c);
             m.put(c, thisDisjointSet);
             c++;
+        }
+        for(Edge e : toAdd){
+            DisjointSet<Character> first = m.get(e.getOrigin());
+            DisjointSet<Character> second = m.get(e.getDestination());
+            if(ds.find(first) != ds.find(second)){
+                first.union(second);
+                g.connectVertices(edgesOrd.get(idx));
+                ++edgescount;
+            }else{
+                return Optional.empty();
+            }
         }
         //adiciona as arestas ao grafo. Se a aresta fosse realizar ciclo, não adiciona.
         //Como está ordenado, vai adicinando as menores
@@ -130,7 +141,7 @@ public class Main {
         Vector<Partition> list = new Vector<Partition>();
         Partition first = new Partition(e);
         list.add(first);
-        Graph toCheck = kruskal(n, e).get();
+        Graph toCheck = kruskal(n, e, new Vector<Edge>()).get();
         while(!degreesCheck(toCheck, d)){
 
         }
