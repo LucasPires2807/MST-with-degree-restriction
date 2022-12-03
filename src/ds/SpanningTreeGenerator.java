@@ -57,8 +57,8 @@ public class SpanningTreeGenerator {
             }
             return;
         }
-        generateTrees(b.increment(true));
         generateTrees(b.increment( false));
+        generateTrees(b.increment(true));
     }
 
     /**
