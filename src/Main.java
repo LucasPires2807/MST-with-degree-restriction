@@ -1,14 +1,12 @@
-import java.util.Vector;
-import java.util.Scanner;
-import java.util.BitSet;
-import ds.Edge;
-import ds.Graph;
-import ds.SpanningTreeGenerator;
-import ds.MyBitSet;
+import java.util.*;
+
+import auxiliary.EdgeComparator;
+import auxiliary.Partition;
+import auxiliary.Validation2;
+import ds.*;
 import auxiliary.Validation;
 public class Main {
-
-
+    
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int n, d;
@@ -32,23 +30,23 @@ public class Main {
             }
         }
 
-        Graph g = new Graph(e);
-        MyBitSet bitset = new MyBitSet(0);
+        /*Graph g = new Graph(e);
+        MyBitSet bitset = new MyBitSet(g.getEdges().size());
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(n, d, e);
 
-        stg.generateTrees();
+        stg.generateTrees(bitset);
 
         Vector<MyBitSet> bs = stg.getBitsets().get();
         Vector<Graph> graphs = new Vector<Graph>();
 
         int min = Integer.MAX_VALUE;
 
-       for(MyBitSet b : bs){
-           if(v.isBitsetSpanningTree(b)){
-               graphs.add(v.getGraph());
-           }
-       }
+        for(MyBitSet b : bs){
+            if(v.isBitsetSpanningTree(b)){
+                graphs.add(v.getGraph());
+            }
+        }
         for(Graph i : graphs){
             int value = i.getTotalCost();
             if(min > value){
@@ -56,15 +54,11 @@ public class Main {
                 g = i;
             }
         }
-       System.out.println("Custo: " + min);
-       System.out.print("Vertices: {0");
-       for(int i = 1; i < n; ++i){
-        System.out.print(", " + ((i == n-1) ? i + "}" : i));
-       }
-       System.out.println();
-       for(Edge i : g.getEdges()){
-           System.out.println(i);
-       }
+        System.out.println("Custo: " + min);
+        System.out.println("Spanning tree:");
+        for(Edge i : g.getEdges()){
+            System.out.println(i);
+        }*/
         /*
         Com isso, o exemplo:
         5 2
@@ -81,5 +75,20 @@ public class Main {
         c5  0  0  0  0  0
          */
         sc.close();
+
+        Vector<Partition> list = new Vector<Partition>();
+        Partition first = new Partition(e);
+        list.add(first);
+        Validation2 check = new Validation2();
+        first.setMst(check.kruskal(n, e, new Vector<Edge>()).get());
+        Graph toCheck = first.getMst();
+        while(!check.degreesCheck(toCheck, d)){
+            list.remove(first);
+            check.addPartitions(first,list, n);
+            if(list.isEmpty())break;
+            first = check.minPart(list);
+            toCheck = first.getMst();
+        }
+
     }
 }

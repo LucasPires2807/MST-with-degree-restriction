@@ -1,11 +1,7 @@
 package ds;
 
 import java.lang.Object;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Vector;
-import java.util.Optional;
+import java.util.*;
 
 public class SpanningTreeGenerator {
     private int n;                    /// The number of nodes of the trees
@@ -59,6 +55,40 @@ public class SpanningTreeGenerator {
         }
         generateTrees(b.increment( false));
         generateTrees(b.increment(true));
+    }
+
+    /**
+     * This method creates all the graphs of n nodes that has at most n-1 edges
+     *
+     * In each iteration, the method call itself to iterate through the
+     * representations of the graph with one more edge represented (it may has or not the increased edge),
+     * but in case the current graph has more edges then the maximum, it stops this path.
+     * When we find a graph that has all the edges represented, we push it into 'MyTrees' vector
+     * in case it has the correct number of edges, we do nothing in case otherwise.
+     *
+     */
+    public void generateTreesIt(){
+        Stack<MyBitSet> pilha = new Stack<>();
+
+        pilha.push(new MyBitSet(0));
+        MyBitSet cur;
+
+        while (!pilha.empty()){
+            cur = pilha.peek();
+            pilha.pop();
+
+            if(cur.cardinality() > n-1) continue;
+            if(cur.size() > (n*n - n)/2) continue;
+            if(cur.size() == (n*n - n)/2){
+                if(cur.cardinality() == n-1){
+                    myTrees.add(cur);
+                }
+                continue;
+            }
+
+            pilha.push(cur.increment(false));
+            pilha.push(cur.increment(true));
+        }
     }
 
     /**
