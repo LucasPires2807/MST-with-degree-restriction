@@ -78,6 +78,7 @@ public class Validation2 {
                 g.connectVertices(edgesOrd.get(idx));
                 ++edgescount;
             }else{
+                System.out.println("banana");
                 return Optional.empty();
             }
         }

@@ -22,41 +22,6 @@ public class SpanningTreeGenerator {
         myTrees = new Vector<>();
     }
 
-//    private BitSet increment(MyBitSet b , boolean a){
-//        System.out.println("tamanho b: "+b.size());
-//        BitSet r = new BitSet(b.size()+1);
-//        System.out.println("tamanho r: "+r.size());
-//        for(int i = 0; i < b.size(); ++i){
-//            r.set(i, b.get(i));
-//        }
-//        r.set(b.size(), a);
-//        return r;
-//    }
-
-    /**
-     * This method creates all the graphs of n nodes that has at most n-1 edges
-     *
-     * In each iteration, the method call itself to iterate through the
-     * representations of the graph with one more edge represented (it may has or not the increased edge),
-     * but in case the current graph has more edges then the maximum, it stops this execution path.
-     * When we find a graph that has all the edges represented, we push it into 'MyTrees' vector
-     * in case it has the correct number of edges, we do nothing in case otherwise.
-     *
-     * @param b the MyBitSet that represents the current graph.
-     */
-    private void generateTrees(MyBitSet b){
-        if(b.cardinality() > n-1) return;
-        if(b.size() > (n*n - n)/2) return;
-        if(b.size() == (n*n - n)/2){
-            if(b.cardinality() == n-1){
-                myTrees.add(b);
-            }
-            return;
-        }
-        generateTrees(b.increment( false));
-        generateTrees(b.increment(true));
-    }
-
     /**
      * This method creates all the graphs of n nodes that has at most n-1 edges
      *
@@ -92,16 +57,6 @@ public class SpanningTreeGenerator {
     }
 
     /**
-     * This method creates all the graphs of n nodes that has at most n-1 edges in case they where not created before
-     *
-     * In case 'MyTrees' was not nenerated, the method calls a private recursive method of same name,
-     * otherwise, it does nothing
-     */
-    public void generateTrees(){
-        if(myTrees.isEmpty()) generateTrees(new MyBitSet(0));
-    }
-
-    /**
      * A method to get myTrees if it was calculated
      * @return The optional of myTrees in case it were calculated, an empty Optional otherwise
      */
@@ -111,10 +66,6 @@ public class SpanningTreeGenerator {
         }else{
             return Optional.empty();
         }
-    }
-
-    public Vector<MyBitSet> get(){
-        return myTrees;
     }
 
     public int size(){
@@ -133,11 +84,5 @@ public class SpanningTreeGenerator {
         }
         return ret;
     }
-
-     public static void main(String[] args) {
-         SpanningTreeGenerator my_gen = new SpanningTreeGenerator(4,5);
-         my_gen.generateTrees();
-         System.out.println(my_gen.toString());
-     }
 
 }
