@@ -19,22 +19,6 @@ public class MyBitSet {
     }
 
     /**
-     * This method increasses the capacity of the storage maintaining the storage's contents
-     *
-     * @param new_capacity The new capacity of the storage
-     */
-    private void increaseCapacity(int new_capacity){
-        if(new_capacity <= this.capacity) return;
-
-        boolean []new_storage = new boolean[new_capacity];
-        for (int i = 0; i < size; ++i){
-            new_storage[i] = storage[i];
-        }
-        storage = new_storage;
-        capacity = new_capacity;
-    }
-
-    /**
      * This method creates a new MyBitSet with the same contents of this
      * then increasses the size in one and sets the new bit to 'b'
      *
@@ -105,24 +89,24 @@ public class MyBitSet {
         return  ret;
     }
 
-    public static void main(String[] args){
-        MyBitSet a = new MyBitSet(0);
-        MyBitSet at = a.increment(true);
-        MyBitSet af = a.increment(false);
-        MyBitSet att = at.increment(true);
-        MyBitSet atf = at.increment(false);
-        MyBitSet aft = af.increment(true);
-        MyBitSet aff = af.increment(false);
+    // public static void main(String[] args){
+    //     MyBitSet a = new MyBitSet(0);
+    //     MyBitSet at = a.increment(true);
+    //     MyBitSet af = a.increment(false);
+    //     MyBitSet att = at.increment(true);
+    //     MyBitSet atf = at.increment(false);
+    //     MyBitSet aft = af.increment(true);
+    //     MyBitSet aff = af.increment(false);
 
-        System.out.println(a.toString());
-        System.out.println(at.toString());
-        System.out.println(af.toString());
-        System.out.println(att.toString());
-        System.out.println(atf.toString());
-        System.out.println(aft.toString());
-        System.out.println(aff.toString());
+    //     System.out.println(a.toString());
+    //     System.out.println(at.toString());
+    //     System.out.println(af.toString());
+    //     System.out.println(att.toString());
+    //     System.out.println(atf.toString());
+    //     System.out.println(aft.toString());
+    //     System.out.println(aff.toString());
         
-    }
+    // }
 
 
 

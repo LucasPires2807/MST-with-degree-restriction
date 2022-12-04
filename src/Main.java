@@ -1,10 +1,13 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.Vector;
 
-import auxiliary.EdgeComparator;
 import auxiliary.Partition;
 import auxiliary.Validation2;
-import ds.*;
 import auxiliary.Validation;
+import auxiliary.SpanningTreeGenerator;
+import ds.Edge;
+import ds.Graph;
+import ds.MyBitSet;
 public class Main {
     
     public static void main(String[] args){
@@ -31,11 +34,11 @@ public class Main {
         }
 
         /*Graph g = new Graph(e);
-        MyBitSet bitset = new MyBitSet(g.getEdges().size());
+        // MyBitSet bitset = new MyBitSet(g.getEdges().size());
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(n, d, e);
 
-        stg.generateTrees(bitset);
+        stg.generateTreesIt();
 
         Vector<MyBitSet> bs = stg.getBitsets().get();
         Vector<Graph> graphs = new Vector<Graph>();

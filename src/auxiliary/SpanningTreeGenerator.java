@@ -1,7 +1,9 @@
-package ds;
+package auxiliary;
 
-import java.lang.Object;
-import java.util.*;
+import java.util.Vector;
+import java.util.Stack;
+import java.util.Optional;
+import ds.MyBitSet;
 
 public class SpanningTreeGenerator {
     private int n;                    /// The number of nodes of the trees
