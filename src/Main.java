@@ -11,6 +11,7 @@ import ds.MyBitSet;
 public class Main {
     
     public static void main(String[] args){
+        System.out.println("batata");
         Scanner sc = new Scanner(System.in);
         int n, d;
         n = sc.nextInt();

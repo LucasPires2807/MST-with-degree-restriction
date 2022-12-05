@@ -36,8 +36,9 @@ public class Validation2 {
             Vector<Edge> c = new Vector<>(out);
 //            c = out;
             Partition n = new Partition(a,b,c);
+
 //            Partition n = new Partition(in,open,out);
-            Optional<Graph> g = kruskal(nodesqtt, open, in);
+            Optional<Graph> g = kruskal(nodesqtt, open, a);
             if(g.isPresent()){
                 n.setMst(g.get());
                 n.newExcluded(e);
@@ -66,7 +67,7 @@ public class Validation2 {
         //adiciona os nós ao grafo
         for(int i = 0; i < n; i++){
             g.insertVertex(c);
-            DisjointSet<Character> thisDisjointSet = new DisjointSet<>(c);
+            DisjointSet<Character> thisDisjointSet = new DisjointSet<Character>(c);
             m.put(c, thisDisjointSet);
             c++;
         }
@@ -75,10 +76,9 @@ public class Validation2 {
             DisjointSet<Character> second = m.get(e.getDestination());
             if(ds.find(first) != ds.find(second)){
                 first.union(second);
-                g.connectVertices(edgesOrd.get(idx));
+                g.connectVertices(e);
                 ++edgescount;
-            }else{
-                System.out.println("banana");
+            }else{                
                 return Optional.empty();
             }
         }
@@ -94,7 +94,7 @@ public class Validation2 {
                 ++edgescount;
             }
             idx++;
-        }
+        }       
         if(edgescount != n-1){
             return Optional.empty();
         }else return Optional.of(g);
