@@ -27,6 +27,9 @@ public class Validation2 {
         Vector<Edge> in = p.getIncluded();
         Vector<Edge> open = p.getOpen();
         Vector<Edge> out = p.getExcluded();
+        for(Edge e: in){
+            mstEdges.remove(e);
+        }
         for(Edge e: mstEdges){
             open.remove(e);
             Vector<Edge> a = new Vector<>(in);
@@ -78,7 +81,7 @@ public class Validation2 {
                 first.union(second);
                 g.connectVertices(e);
                 ++edgescount;
-            }else{                
+            }else{
                 return Optional.empty();
             }
         }
@@ -94,7 +97,7 @@ public class Validation2 {
                 ++edgescount;
             }
             idx++;
-        }       
+        }
         if(edgescount != n-1){
             return Optional.empty();
         }else return Optional.of(g);
