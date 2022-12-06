@@ -1,3 +1,4 @@
+import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -9,10 +10,26 @@ import ds.Edge;
 import ds.Graph;
 import ds.MyBitSet;
 public class Main {
+
+    public static Scanner getScanner(String get_file) throws Exception{
+        try {
+            Scanner entry_file = new Scanner(new FileReader(get_file));
+            return entry_file;
+        }catch (Exception e){
+            System.out.println("Arquivo de entrada não encontrado, execução encerrada");
+        }
+        return null;
+    }
     
     public static void main(String[] args){
-        System.out.println("batata");
+        System.out.println("Digite o path para o arquivo de entrada");
         Scanner sc = new Scanner(System.in);
+        String entry = sc.nextLine();
+        try {
+            sc = getScanner(entry);
+        }catch (Exception e){
+            return;
+        }
         int n, d;
         n = sc.nextInt();
         d = sc.nextInt();
