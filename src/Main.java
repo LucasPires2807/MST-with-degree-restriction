@@ -4,14 +4,13 @@ import java.util.Vector;
 import auxiliary.Partition;
 import auxiliary.Validation2;
 import auxiliary.Validation;
-import auxiliary.SpanningTreeGenerator;
+import ds.SpanningTreeGenerator;
 import ds.Edge;
 import ds.Graph;
 import ds.MyBitSet;
 public class Main {
-    
+
     public static void main(String[] args){
-        System.out.println("batata");
         Scanner sc = new Scanner(System.in);
         int n, d;
         n = sc.nextInt();
@@ -64,9 +63,8 @@ public class Main {
         for(Edge i : g.getEdges()){
             System.out.println(i);
         }
-        
-        sc.close();
 
+        sc.close();
         Vector<Partition> list = new Vector<Partition>();
         Partition first = new Partition(e);
         list.add(first);
