@@ -34,7 +34,7 @@ public class Main {
             }
         }
 
-        /*Graph g = new Graph(e);
+        Graph g = new Graph(e);
         // MyBitSet bitset = new MyBitSet(g.getEdges().size());
         SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
         Validation v = new Validation(n, d, e);
@@ -58,26 +58,13 @@ public class Main {
                 g = i;
             }
         }
+        System.out.println("Solução 1: ");
         System.out.println("Custo: " + min);
         System.out.println("Spanning tree:");
         for(Edge i : g.getEdges()){
             System.out.println(i);
-        }*/
-        /*
-        Com isso, o exemplo:
-        5 2
-        5 10 15 2
-        21 2 45
-        53 12
-        13
-        Será armazenado na matriz edge da seguinte forma:
-           c1 c2 c3 c4 c5
-        c1  0  5 10 15  2
-        c2  0  0 21  2 45
-        c3  0  0  0 53 12
-        c4  0  0  0  0 13
-        c5  0  0  0  0  0
-         */
+        }
+        
         sc.close();
 
         Vector<Partition> list = new Vector<Partition>();
@@ -93,6 +80,7 @@ public class Main {
             first = check.minPart(list);
             toCheck = first.getMst();
         }
+        System.out.println("Solução 2: ");
         System.out.println("Custo: " + toCheck.getTotalCost());
         System.out.println("Spanning tree:");
         for(Edge i : toCheck.getEdges()){
