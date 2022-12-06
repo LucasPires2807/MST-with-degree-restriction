@@ -1,2 +1,2 @@
 # MST-with-degree-restriction
-Final project of the subject Programming Language 2 in java and Basic Data Structs 2.
+Para executar esse projeto, basta executar a classe Main no IDE (como Intellij e Eclipse) e inserir as entradas diretamente. 
