@@ -38,6 +38,8 @@ public class Graph {
         if(edgesSet.contains(e)) return;
         edges.add(e);
         edgesSet.add(e);
+        insertVertex(e.getOrigin());
+        insertVertex(e.getDestination());
         nodesDegree.replace(e.getOrigin(),nodesDegree.get(e.getOrigin())+1);
         nodesDegree.replace(e.getDestination(),nodesDegree.get(e.getDestination())+1);
         totalCost += e.getWeight();
