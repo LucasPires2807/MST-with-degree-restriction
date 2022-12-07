@@ -1,4 +1,5 @@
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -20,7 +21,9 @@ public class Main {
         }
         return null;
     }
+
     public static void main(String[] args){
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         System.out.println("Digite o path para o arquivo de entrada");
         Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
@@ -50,35 +53,36 @@ public class Main {
             }
         }
 
-        /*Graph g = new Graph(e);
-        // MyBitSet bitset = new MyBitSet(g.getEdges().size());
-        SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
-        Validation v = new Validation(n, d, e);
+        // Graph g = new Graph(e);
+        // // MyBitSet bitset = new MyBitSet(g.getEdges().size());
+        // SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
+        // Validation v = new Validation(n, d, e);
 
-        stg.generateTreesIt();
+        // stg.generateTreesIt();
 
-        Vector<MyBitSet> bs = stg.getBitsets().get();
-        Vector<Graph> graphs = new Vector<Graph>();
+        // Vector<MyBitSet> bs = stg.getBitsets().get();
+        // Vector<Graph> graphs = new Vector<Graph>();
 
-        int min = Integer.MAX_VALUE;
+        // int min = Integer.MAX_VALUE;
 
-        for(MyBitSet b : bs){
-            if(v.isBitsetSpanningTree(b)){
-                graphs.add(v.getGraph());
-            }
-        }
-        for(Graph i : graphs){
-            int value = i.getTotalCost();
-            if(min > value){
-                min = value;
-                g = i;
-            }
-        }
-        System.out.println("Custo: " + min);
-        System.out.println("Spanning tree:");
-        for(Edge i : g.getEdges()){
-            System.out.println(i);
-        }*/
+        // for(MyBitSet b : bs){
+        //     if(v.isBitsetSpanningTree(b)){
+        //         graphs.add(v.getGraph());
+        //     }
+        // }
+        // for(Graph i : graphs){
+        //     int value = i.getTotalCost();
+        //     if(min > value){
+        //         min = value;
+        //         g = i;
+        //     }
+        // }
+        // System.out.println("Solução 1: ");
+        // System.out.println("Custo: " + min);
+        // System.out.println("Spanning tree:");
+        // for(Edge i : g.getEdges()){
+        //     System.out.println(i);
+        // }
         /*
         Com isso, o exemplo:
         5 2
@@ -109,6 +113,7 @@ public class Main {
             first = check.minPart(list);
             toCheck = first.getMst();
         }
+        System.out.println("Solução 2: ");
         System.out.println("Custo: " + toCheck.getTotalCost());
         System.out.println("Spanning tree:");
         for(Edge i : toCheck.getEdges()){

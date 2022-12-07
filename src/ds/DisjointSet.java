@@ -8,8 +8,8 @@ public class DisjointSet <T>{
         size = 0;
         father = this;
         value = v;
-    }
 
+    }
     public DisjointSet<T> makeSet(T v){
         size = 0;
         father = this;
@@ -23,7 +23,7 @@ public class DisjointSet <T>{
         if(fatherThis.size > fatherOther.size){
             other.father = fatherThis;
         }else{
-            this.father = fatherOther;
+            fatherThis.father = fatherOther;
         }
         if(fatherThis.size == fatherOther.size){
             ++fatherOther.size;
@@ -37,11 +37,6 @@ public class DisjointSet <T>{
             ds.father = find(ds.father);
         }
         return ds.father;
-    }
-
-    @Override
-    public String toString(){
-        return ("Has value " + value);
     }
 
     private int size;
