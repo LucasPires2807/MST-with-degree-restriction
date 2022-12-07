@@ -23,10 +23,13 @@ public class Main {
     }
 
     public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         System.out.println("Digite o path para o arquivo de entrada");
-        Scanner sc = new Scanner(System.in);
         String entry = sc.nextLine();
+
+        System.out.println("Escolha o algoritmo:\n" + "1: algoritmo ingênuo\n" + "2: algoritmo otimizado");
+        int choise = sc.nextInt();
         try {
             sc = getScanner(entry);
         }catch (Exception e){
@@ -53,71 +56,79 @@ public class Main {
             }
         }
 
-        // Graph g = new Graph(e);
-        // // MyBitSet bitset = new MyBitSet(g.getEdges().size());
-        // SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
-        // Validation v = new Validation(n, d, e);
-
-        // stg.generateTreesIt();
-
-        // Vector<MyBitSet> bs = stg.getBitsets().get();
-        // Vector<Graph> graphs = new Vector<Graph>();
-
-        // int min = Integer.MAX_VALUE;
-
-        // for(MyBitSet b : bs){
-        //     if(v.isBitsetSpanningTree(b)){
-        //         graphs.add(v.getGraph());
-        //     }
-        // }
-        // for(Graph i : graphs){
-        //     int value = i.getTotalCost();
-        //     if(min > value){
-        //         min = value;
-        //         g = i;
-        //     }
-        // }
-        // System.out.println("Solução 1: ");
-        // System.out.println("Custo: " + min);
-        // System.out.println("Spanning tree:");
-        // for(Edge i : g.getEdges()){
-        //     System.out.println(i);
-        // }
-        /*
-        Com isso, o exemplo:
-        5 2
-        5 10 15 2
-        21 2 45
-        53 12
-        13
-        Será armazenado na matriz edge da seguinte forma:
-           c1 c2 c3 c4 c5
-        c1  0  5 10 15  2
-        c2  0  0 21  2 45
-        c3  0  0  0 53 12
-        c4  0  0  0  0 13
-        c5  0  0  0  0  0
-         */
         sc.close();
 
-        Vector<Partition> list = new Vector<Partition>();
-        Partition first = new Partition(e);
-        list.add(first);
-        Validation2 check = new Validation2();
-        first.setMst(check.kruskal(n, e, new Vector<Edge>()).get());
-        Graph toCheck = first.getMst();
-        while(!check.degreesCheck(toCheck, d)){
-            list.remove(first);
-            check.addPartitions(first,list, n);
-            if(list.isEmpty())break;
-            first = check.minPart(list);
-            toCheck = first.getMst();
+        boolean cont = true;
+        Scanner get_type = new Scanner(System.in);
+        while (cont){
+            switch (choise){
+                case 1:{
+                    cont = false;
+                    Graph g = new Graph(e);
+                    SpanningTreeGenerator stg = new SpanningTreeGenerator(n, d);
+                    Validation v = new Validation(n, d, e);
+
+                    stg.generateTreesIt();
+
+                    Vector<MyBitSet> bs = stg.getBitsets().get();
+                    Vector<Graph> graphs = new Vector<Graph>();
+
+                    int min = Integer.MAX_VALUE;
+
+                    for(MyBitSet b : bs){
+                        if(v.isBitsetSpanningTree(b)){
+                            graphs.add(v.getGraph());
+                        }
+                    }
+                    for(Graph i : graphs){
+                        int value = i.getTotalCost();
+                        if(min > value){
+                            min = value;
+                            g = i;
+                        }
+                    }
+                    System.out.println("Solução 1: ");
+                    System.out.println("Custo: " + min);
+                    System.out.println("Spanning tree:");
+                    for(Edge i : g.getEdges()){
+                        System.out.println(i);
+                    }
+                    break;
+                }
+                case 2:{
+                    cont = false;
+                    Vector<Partition> list = new Vector<Partition>();
+                    Partition first = new Partition(e);
+                    list.add(first);
+                    Validation2 check = new Validation2();
+                    first.setMst(check.kruskal(n, e, new Vector<Edge>()).get());
+                    Graph toCheck = first.getMst();
+                    while(!check.degreesCheck(toCheck, d)){
+                        list.remove(first);
+                        check.addPartitions(first,list, n);
+                        if(list.isEmpty())break;
+                        first = check.minPart(list);
+                        toCheck = first.getMst();
+                    }
+                    System.out.println("Solução 2: ");
+                    System.out.println("Custo: " + toCheck.getTotalCost());
+                    System.out.println("Spanning tree:");
+                    for(Edge i : toCheck.getEdges()){
+                        System.out.println(i);
+                    }
+                }
+                break;
+                default:{
+                    System.out.println("Escolha inválida");
+                    System.out.println("Escolha o algoritmo:\n" + "1: algoritmo ingênuo\n" + "2: algoritmo otimizado");
+                    choise = get_type.nextInt();
+
+                }
+            }
         }
-        System.out.println("Solução 2: ");
-        System.out.println("Custo: " + toCheck.getTotalCost());
-        System.out.println("Spanning tree:");
-        for(Edge i : toCheck.getEdges()){
-            System.out.println(i);
-        }
+
+
+
+
     }
 }
