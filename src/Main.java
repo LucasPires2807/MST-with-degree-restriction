@@ -20,7 +20,6 @@ public class Main {
         }
         return null;
     }
-    
     public static void main(String[] args){
         System.out.println("Digite o path para o arquivo de entrada");
         Scanner sc = new Scanner(System.in);
